@@ -1,5 +1,5 @@
 """
-Python wrapper for the Undocumented NHL API by jayblackedout
+Python wrapper for the Undocumented NHL API by jayblackedout. (Modified to add timeout parameter to the requests.get functions)
 """
 
 import requests
