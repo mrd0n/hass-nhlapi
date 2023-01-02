@@ -37,15 +37,19 @@ class Schedule:
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
-        s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url, timeout=3)
-        self.data = self.response.json()
+        gotError = False
+        try:
+            s.mount('http://', HTTPAdapter(max_retries=retries))
+            self.response = s.get(url, timeout=2)
+            self.data = self.response.json()
+        except:
+            gotError = True
 
     def game_info(self):
         """Parses the json data and returns a dict of game info"""
         response = self.response
         data = self.data
-        if response.status_code == requests.codes.ok:
+        if response.status_code == requests.codes.ok and not self.gotError:
             try:
                 next_game = data["teams"][0]["nextGameSchedule"]
                 games = next_game["dates"][0]["games"][0]
@@ -68,6 +72,8 @@ class Schedule:
             except KeyError:
                 output = {"game_state": "No Game Scheduled"}
             return output
+        else:
+            return
 
     def datetime_info(self):
         """Parses the json data and returns a dict of date and UTC time info"""
@@ -117,9 +123,13 @@ class Scoring:
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
-        s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url, timeout=3)
-        self.data = self.response.json()
+        gotError = False
+        try:
+            s.mount('http://', HTTPAdapter(max_retries=retries))
+            self.response = s.get(url, timeout=2)
+            self.data = self.response.json()
+        except:
+            gotError = True
 
     def scoring_info(self):
         """Parses the json data and returns a dict of scoring info"""
@@ -171,6 +181,8 @@ class Scoring:
                 return output
             else:
                 return
+        else:
+            return
 
 
 class Live:
@@ -198,15 +210,19 @@ class Live:
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
-        s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url, timeout=3)
-        self.data = self.response.json()
+        gotError = False
+        try:
+            s.mount('http://', HTTPAdapter(max_retries=retries))
+            self.response = s.get(url, timeout=2)
+            self.data = self.response.json()
+        except:
+            gotError = True
 
     def live_info(self):
         """Parses the json data and returns a dict of play/event info"""
         response = self.response
         data = self.data
-        if response.status_code == requests.codes.ok:
+        if response.status_code == requests.codes.ok and not self.gotError:
             plays = data["liveData"]["plays"]
             if plays["allPlays"] != []:
                 teams = data["gameData"]["teams"]
@@ -227,6 +243,8 @@ class Live:
                 return output
             else:
                 return
+        else:
+            return
 
 
 class Linescore:
@@ -255,15 +273,19 @@ class Linescore:
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
-        s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url, timeout=3)
-        self.data = self.response.json()
+        gotError = False
+        try:
+            s.mount('http://', HTTPAdapter(max_retries=retries))
+            self.response = s.get(url, timeout=2)
+            self.data = self.response.json()
+        except:
+            gotError = True
 
     def linescore_info(self):
         """Parses the json data and returns a dict of linescore info"""
         response = self.response
         data = self.data
-        if response.status_code == requests.codes.ok:
+        if response.status_code == requests.codes.ok and not self.gotError:
             if data["totalItems"] == 1:
                 try:
                     linescore = data["dates"][0]["games"][0]["linescore"]
@@ -292,6 +314,8 @@ class Linescore:
                 return output
             else:
                 return
+        else:
+            return
 
 
 class Broadcasts:
@@ -320,15 +344,19 @@ class Broadcasts:
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
-        s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url, timeout=3)
-        self.data = self.response.json()
+        gotError = False
+        try:
+            s.mount('http://', HTTPAdapter(max_retries=retries))
+            self.response = s.get(url, timeout=2)
+            self.data = self.response.json()
+        except:
+            gotError = True
 
     def broadcast_info(self):
         """Parses the json data and returns a dict of broadcast info"""
         response = self.response
         data = self.data
-        if response.status_code == requests.codes.ok:
+        if response.status_code == requests.codes.ok and not self.gotError:
             try:
                 dates = data["teams"][0]["nextGameSchedule"]["dates"][0]
                 info = dates["games"][0]["broadcasts"]
@@ -344,3 +372,5 @@ class Broadcasts:
                 print("Keyerror")
                 output = None
             return output
+        else:
+            return
