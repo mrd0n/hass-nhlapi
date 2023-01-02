@@ -6,6 +6,7 @@ https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 
 import logging
 from datetime import timedelta, datetime as dt
+# (including the pynhl.classes as part of this component)
 # from pynhl import Schedule, Scoring, Linescore, Broadcasts
 import voluptuous as vol
 
