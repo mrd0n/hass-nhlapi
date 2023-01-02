@@ -33,7 +33,7 @@ class Schedule:
         """Returns the json data of the defined team's next scheduled game"""
         endpoint = f"teams/{team_id}?expand=team.schedule.next"
         url = BASE + endpoint
-        retries = Retry(total=5,
+        retries = Retry(total=1,
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
@@ -44,6 +44,7 @@ class Schedule:
             self.data = self.response.json()
         except:
             gotError = True
+            pass
 
     def game_info(self):
         """Parses the json data and returns a dict of game info"""
@@ -119,7 +120,7 @@ class Scoring:
         """Returns the json data of the defined team's last/current game"""
         endpoint = f"schedule?teamId={team_id}&hydrate=scoringplays"
         url = BASE + endpoint
-        retries = Retry(total=5,
+        retries = Retry(total=1,
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
@@ -130,6 +131,7 @@ class Scoring:
             self.data = self.response.json()
         except:
             gotError = True
+            pass
 
     def scoring_info(self):
         """Parses the json data and returns a dict of scoring info"""
@@ -206,7 +208,7 @@ class Live:
         """Returns the json data of the defined team's live game"""
         endpoint = f"game/{game_id}/feed/live"
         url = BASE + endpoint
-        retries = Retry(total=5,
+        retries = Retry(total=1,
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
@@ -217,6 +219,7 @@ class Live:
             self.data = self.response.json()
         except:
             gotError = True
+            pass
 
     def live_info(self):
         """Parses the json data and returns a dict of play/event info"""
@@ -269,7 +272,7 @@ class Linescore:
         endpoint = \
             f"schedule?teamId={team_id}&expand=schedule.linescore"
         url = BASE + endpoint
-        retries = Retry(total=5,
+        retries = Retry(total=1,
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
@@ -280,6 +283,7 @@ class Linescore:
             self.data = self.response.json()
         except:
             gotError = True
+            pass
 
     def linescore_info(self):
         """Parses the json data and returns a dict of linescore info"""
@@ -340,7 +344,7 @@ class Broadcasts:
         endpoint = f"teams/{team_id}?expand=team.schedule.next&" + \
             "expand=schedule.broadcasts.all"
         url = BASE + endpoint
-        retries = Retry(total=5,
+        retries = Retry(total=1,
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
@@ -351,6 +355,7 @@ class Broadcasts:
             self.data = self.response.json()
         except:
             gotError = True
+            pass
 
     def broadcast_info(self):
         """Parses the json data and returns a dict of broadcast info"""
