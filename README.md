@@ -1,6 +1,6 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 # Home Assistant NHL API
-NHL Stats API Integration Into Home Assistant: Bring live score updates into Home Assistant and fire automations when your team scores!
+NHL Stats API Integration Into Home Assistant: Bring live score updates into Home Assistant and fire automations when your team scores!  (Modified to include a timeout to workaround api requests failures)
 
 <span style="color:red">*New!*</span> The sensor will only fetch data every 10 minutes when the game is not live and will then update at the user defined frequency (or every second if undefined) once the game is live. Credit goes to @mastermc0. 
 ## Installation: Manual
