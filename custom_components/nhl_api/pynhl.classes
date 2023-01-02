@@ -5,6 +5,8 @@ Python wrapper for the Undocumented NHL API by jayblackedout. (Modified to add t
 import requests
 from datetime import datetime as dt, timedelta
 
+from requests.adapters import HTTPAdapter, Retry
+
 BASE = "https://statsapi.web.nhl.com/api/v1/"
 
 
@@ -31,7 +33,12 @@ class Schedule:
         """Returns the json data of the defined team's next scheduled game"""
         endpoint = f"teams/{team_id}?expand=team.schedule.next"
         url = BASE + endpoint
-        self.response = requests.get(url, timeout=7)
+        retries = Retry(total=5,
+                backoff_factor=0.1,
+                status_forcelist=[ 500, 502, 503, 504 ])
+        s = requests.Session()
+        s.mount('http://', HTTPAdapter(max_retries=retries))
+        self.response = s.get(url)
         self.data = self.response.json()
 
     def game_info(self):
@@ -106,7 +113,12 @@ class Scoring:
         """Returns the json data of the defined team's last/current game"""
         endpoint = f"schedule?teamId={team_id}&hydrate=scoringplays"
         url = BASE + endpoint
-        self.response = requests.get(url, timeout=7)
+        retries = Retry(total=5,
+                backoff_factor=0.1,
+                status_forcelist=[ 500, 502, 503, 504 ])
+        s = requests.Session()
+        s.mount('http://', HTTPAdapter(max_retries=retries))
+        self.response = s.get(url)
         self.data = self.response.json()
 
     def scoring_info(self):
@@ -182,7 +194,12 @@ class Live:
         """Returns the json data of the defined team's live game"""
         endpoint = f"game/{game_id}/feed/live"
         url = BASE + endpoint
-        self.response = requests.get(url, timeout=7)
+        retries = Retry(total=5,
+                backoff_factor=0.1,
+                status_forcelist=[ 500, 502, 503, 504 ])
+        s = requests.Session()
+        s.mount('http://', HTTPAdapter(max_retries=retries))
+        self.response = s.get(url)
         self.data = self.response.json()
 
     def live_info(self):
@@ -234,7 +251,12 @@ class Linescore:
         endpoint = \
             f"schedule?teamId={team_id}&expand=schedule.linescore"
         url = BASE + endpoint
-        self.response = requests.get(url, timeout=7)
+        retries = Retry(total=5,
+                backoff_factor=0.1,
+                status_forcelist=[ 500, 502, 503, 504 ])
+        s = requests.Session()
+        s.mount('http://', HTTPAdapter(max_retries=retries))
+        self.response = s.get(url)
         self.data = self.response.json()
 
     def linescore_info(self):
@@ -294,7 +316,12 @@ class Broadcasts:
         endpoint = f"teams/{team_id}?expand=team.schedule.next&" + \
             "expand=schedule.broadcasts.all"
         url = BASE + endpoint
-        self.response = requests.get(url, timeout=7)
+        retries = Retry(total=5,
+                backoff_factor=0.1,
+                status_forcelist=[ 500, 502, 503, 504 ])
+        s = requests.Session()
+        s.mount('http://', HTTPAdapter(max_retries=retries))
+        self.response = s.get(url)
         self.data = self.response.json()
 
     def broadcast_info(self):
