@@ -38,7 +38,7 @@ class Schedule:
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url)
+        self.response = s.get(url, timeout=3)
         self.data = self.response.json()
 
     def game_info(self):
@@ -118,7 +118,7 @@ class Scoring:
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url)
+        self.response = s.get(url, timeout=3)
         self.data = self.response.json()
 
     def scoring_info(self):
@@ -199,7 +199,7 @@ class Live:
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url)
+        self.response = s.get(url, timeout=3)
         self.data = self.response.json()
 
     def live_info(self):
@@ -256,7 +256,7 @@ class Linescore:
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url)
+        self.response = s.get(url, timeout=3)
         self.data = self.response.json()
 
     def linescore_info(self):
@@ -321,7 +321,7 @@ class Broadcasts:
                 status_forcelist=[ 500, 502, 503, 504 ])
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.response = s.get(url)
+        self.response = s.get(url, timeout=3)
         self.data = self.response.json()
 
     def broadcast_info(self):
