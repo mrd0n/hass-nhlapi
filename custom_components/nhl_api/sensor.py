@@ -6,7 +6,7 @@ https://github.com/JayBlackedOut/hass-nhlapi/blob/master/README.md
 
 import logging
 from datetime import timedelta, datetime as dt
-from pynhl import Schedule, Scoring, Linescore, Broadcasts
+# from pynhl import Schedule, Scoring, Linescore, Broadcasts
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -16,9 +16,11 @@ import homeassistant.util.dt as dt_util
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.event import track_point_in_time
 
+from pynhl.classes import *
+
 _LOGGER = logging.getLogger(__name__)
 
-__version__ = '0.10.2'
+__version__ = '0.10.2.1'
 
 CONF_ID = 'team_id'
 CONF_NAME = 'name'
